@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="Customers">
+<html lang="en" ng-app="Customers" ng-controller="CustomersListController">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
@@ -64,8 +64,8 @@
                         </ul>
                     </li>
                     <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Put on the cuff </a></li>
-                    <li><a href="./aboutus.html#"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> About</a></li>
-                    <li><a href="./contactus.html#"><i class="fa fa-envelope-o"></i> Contact</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> About</a></li>
+                    <li><a href="#"><i class="fa fa-envelope-o"></i> Contact</a></li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
@@ -90,12 +90,12 @@
 
                     <form class="form-inline" role="form">
                         <div class="form-group">
-                            <label class="sr-only" for="email">Email Address</label>
-                            <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+                            <label class="sr-only" for="emailLoginModal">Email Address</label>
+                            <input type="text" class="form-control" id="emailLoginModal" name="emailLoginModal" placeholder="Email">
                         </div>
                         <div class="form-group">
-                            <label class="sr-only" for="email">Password</label>
-                            <input type="text" class="form-control" id="password" name="password" placeholder="Password">
+                            <label class="sr-only" for="passwordLoginModal">Password</label>
+                            <input type="text" class="form-control" id="passwordLoginModal" name="passwordLoginModal" placeholder="Password">
                         </div>
                         <div class="checkbox">
                             <label><input type="checkbox">
@@ -108,9 +108,63 @@
 
                 </div>
             </div>
-
         </div>
     </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="editModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="refreshPage()"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Edit Customer</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="cpf-modal">CPF:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="cpf-modal" placeholder="Enter CPF" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" title="Type CPF following the example: 135.723.236-80" ng-model="customer.cpf" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name-modal">Name:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="name-modal" placeholder="Enter Name" ng-model="customer.customer_name" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="mobile">Cellphone:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="mobile" placeholder="Enter Cellphone" ng-model="customer.cellphone">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="tel">Telephone:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="tel" placeholder="Enter Telephone" ng-model="customer.telephone">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="email-modal">Email:</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="email-modal" placeholder="Enter Email" ng-model="customer.email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary" ng-click="editCustomer(customer)">Save Changes</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="refreshPage()">Close</button>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 
     <header class="jumbotron">
 
@@ -129,7 +183,7 @@
 
     <div class="container">
 
-        <div class="row row-content" ng-controller="CustomersListController">
+        <div class="row row-content">
             <div class="col-xs-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">Customers List</div>
@@ -158,7 +212,7 @@
                                         <td> {{ customer.email }} </td>
                                         <td>
                                             <div class="btn-group">
-                                                <button type="button" class="btn btn-warning" ng-click="editCustomer(customer.cpf)">Edit</button>
+                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal" ng-click="callEditModal(customer)">Edit</button>
                                                 <button type="button" class="btn btn-danger" ng-click="removeCustomer(customer.cpf)">Delete</button>
                                             </div>
                                         </td>

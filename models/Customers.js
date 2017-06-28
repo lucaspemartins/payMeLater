@@ -3,12 +3,9 @@ var db = require('../dbconnection'); //reference of dbconnection.js
 var Customers = {
 
     getAllCustomers: function(callback) {
-
         return db.query("select * from customers", callback);
-
     },
     getCustomerByCpf: function(cpf, callback) {
-
         return db.query("select * from customers where cpf=?", [cpf], callback);
     },
     addCustomer: function(Customers, callback) {
