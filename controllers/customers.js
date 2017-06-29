@@ -41,34 +41,33 @@
                     $scope.customer = customer;
                 };
 
+                $scope.customer = {
+                    cpf: '',
+                    customer_name: '',
+                    cellphone: '',
+                    telephone: '',
+                    email: ''
+                };
+
                 $scope.editCustomer = function (customer) {
-                    
-                    var customerData = {
-                        cpf: customer.cpf,
-                        customer_name: customer.customer_name,
-                        cellphone: customer.cellphone,
-                        telephone: customer.telephone,
-                        email: customer.email
-                    }
 
                     if (customer.cpf && customer.customer_name) {
                         var url = 'http://localhost:3000/Customers/' + customer.cpf;
                         $http({
                             method: 'PUT',
                             url: url,
-                            config: { headers: { 'Content-Type': 'application/x-www-form-urlencoded'}},
-                            data: JSON.stringify(customerData)
+                            data: customer
                         }).then(function (success) {
                             var response = JSON.stringify(success);
-                            alert(response);
+                            console.log(response);
                             if (response.indexOf("\"affectedRows\":1") > -1) {
                                 alert("Customer with CPF: " + customer.cpf + "\nwas edited successfully!");
                             }
                             else {
-                                alert("Customer cannot be edited!");
+                                alert("Customer cannot be edited!\n\n" + response);
                             }
                         }, function (error) {
-                            alert("ERROR. Customer cannot be edited!\n" + JSON.stringify(error));
+                            alert(JSON.stringify(error));
                         });
                         $window.location.reload();
                     }
@@ -76,7 +75,8 @@
 
                 $scope.refreshPage = function () {
                     $window.location.reload();
-                }
+                };
+
             }])
 
         .controller('CustomersAddController', ['$scope', '$http', '$window',
@@ -104,6 +104,6 @@
                     telephone: '',
                     email: ''
                 };
-            }]);
+            }])
 })();
 

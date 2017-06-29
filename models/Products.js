@@ -15,7 +15,7 @@ var Products = {
         return db.query("insert into products(id_product, product_code, product_version, product_name, price) values(?,?,?,?,?)", [Products.id_product, Products.product_code, Products.product_version, Products.product_name, Products.price], callback);
     },
     deleteProduct: function(code, callback) {
-        return db.query("delete from product where product_code=?", [code], callback);
+        return db.query("delete from products where product_code=?", [code], callback);
     },
     updateProduct: function(code, Products, callback) {
         return db.query("update products set product_name=?, product_version=?, price=? where product_code=?", [Products.product_name, Products.product_version, Products.price, code], callback);

@@ -59,11 +59,18 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                          <span class="glyphicon glyphicon-th" aria-hidden="true"></span> Products <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span> List</a></li>
-                            <li><a href="#"><span class="glyphicon glyphicon-plus"></span> Add</a></li>
+                            <li><a href="productslist.html"><span class="glyphicon glyphicon-list-alt"></span> List</a></li>
+                            <li><a href="productsadd.html"><span class="glyphicon glyphicon-plus"></span> Add</a></li>
                         </ul>
                     </li>
-                    <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Put on the cuff </a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                         <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Put on the cuff <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="saleslist.html"><span class="glyphicon glyphicon-list-alt"></span> List</a></li>
+                            <li><a href="salesadd.html"><span class="glyphicon glyphicon-plus"></span> Add</a></li>
+                        </ul>
+                    </li>
                     <li><a href="#"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> About</a></li>
                     <li><a href="#"><i class="fa fa-envelope-o"></i> Contact</a></li>
                 </ul>
@@ -138,8 +145,8 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="email">CPF:</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="cpf" placeholder="Enter CPF" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
-      title="Type CPF following the example: 135.723.236-80" ng-model="customer.cpf" required>
+                                    <input type="text" class="form-control" id="cpf" placeholder="Enter CPF" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" title="Type CPF following the example: 135.723.236-80"
+                                        ng-model="customer.cpf" required>
                                 </div>
                             </div>
                             <div class="form-group">
