@@ -3,9 +3,7 @@ var db = require('../dbconnection'); //reference of dbconnection.js
 var Sales = {
 
     getAllSales: function(callback) {
-
-        return db.query("select * from customers_has_products", callback);
-
+        return db.query("select * from customers_has_products s join products p on s.products_id_product = p.id_product join customers c on s.customers_cpf = c.cpf", callback);
     },
     addSale: function(Sales, callback) {
         return db.query("insert into customers_has_products(customers_cpf, products_id_product, products_product_code, products_product_version, quantity) values(?,?,?,?,?)", [Sales.customers_cpf, Sales.products_id_product, Sales.products_product_code, Sales.products_product_version, Sales.quantity], callback);

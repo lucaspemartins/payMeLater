@@ -51,35 +51,23 @@
                 $scope.editProduct = function (product) {
 
                     if (product.product_code && product.product_version) {
-                        var MAX_REQUESTS = 3,
-                            retries = 0;
-
-                        function doQuery() {
-                            var url = 'http://localhost:3000/Products/' + product.product_code;
-                            $http({
-                                method: 'PUT',
-                                url: url,
-                                data: product
-                            }).then(function (success) {
-                                var response = JSON.stringify(success);
-                                alert(response);
-                                if (response.indexOf("\"affectedRows\":1") > -1) {
-                                    alert("Product with Code: " + product.product_code + "\nwas edited successfully!");
-                                }
-                                else {
-                                    alert("Product cannot be edited!\n\n" + response);
-                                }
-                            }, function (error) {
-                                if (error.status <= 0 && retries < MAX_REQUESTS) {
-                                    doQuery();
-                                    retries++;
-                                }
-                                else {
-                                    alert(JSON.stringify(error));
-                                }
-                            });
-                            
-                        }
+                        var url = 'http://localhost:3000/Products/' + product.product_code;
+                        $http({
+                            method: 'PUT',
+                            url: url,
+                            data: product
+                        }).then(function (success) {
+                            var response = JSON.stringify(success);
+                            alert(response);
+                            if (response.indexOf("\"affectedRows\":1") > -1) {
+                                alert("Product with Code: " + product.product_code + "\nwas edited successfully!");
+                            }
+                            else {
+                                alert("Product cannot be edited!\n\n" + response);
+                            }
+                        }, function (error) {
+                            alert(JSON.stringify(error));
+                        });
                         $window.location.reload();
                     }
                 };

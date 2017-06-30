@@ -56,7 +56,8 @@
                         $http({
                             method: 'PUT',
                             url: url,
-                            data: customer
+                            data: customer,
+                            headers: { 'Content-Type' : 'application/json' }
                         }).then(function (success) {
                             var response = JSON.stringify(success);
                             console.log(response);

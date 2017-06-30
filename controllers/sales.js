@@ -42,44 +42,42 @@
                 };
 
                 $scope.sale = {
-                    sale_code: '',
-                    sale_version: '',
-                    sale_name: '',
+                    customers_cpf: '',
+                    customer_name: '',
+                    products_product_code: '',
+                    products_product_version: '',
+                    product_name: '',
+                    quantity: '',
                     price: ''
                 };
 
                 $scope.editSale = function (sale) {
 
-                    if (sale.sale_code && sale.sale_version) {
-                        var MAX_REQUESTS = 3,
-                            retries = 0;
+                    if (sale.quantity) {
+                        var saleData = {
+                            customers_cpf: sale.customers_cpf,
+                            products_product_code: sale.products_product_code,
+                            products_product_version: sale.products_product_version,
+                            quantity: sale.quantity
+                        };
+                        var url = 'http://localhost:3000/Sales/' + sale.quantity;
+                        $http({
+                            method: 'PUT',
+                            url: url,
+                            data: saleData
+                        }).then(function (success) {
+                            var response = JSON.stringify(success);
+                            alert(response);
+                            if (response.indexOf("\"affectedRows\":1") > -1) {
+                                alert("Sale with Code: " + sale.products_product_code + "\nwas edited successfully!");
+                            }
+                            else {
+                                alert("Sale cannot be edited!\n\n" + response);
+                            }
+                        }, function (error) {
+                            alert(JSON.stringify(error));
 
-                        function doQuery() {
-                            var url = 'http://localhost:3000/Sales/' + sale.sale_code;
-                            $http({
-                                method: 'PUT',
-                                url: url,
-                                data: sale
-                            }).then(function (success) {
-                                var response = JSON.stringify(success);
-                                alert(response);
-                                if (response.indexOf("\"affectedRows\":1") > -1) {
-                                    alert("Sale with Code: " + sale.sale_code + "\nwas edited successfully!");
-                                }
-                                else {
-                                    alert("Sale cannot be edited!\n\n" + response);
-                                }
-                            }, function (error) {
-                                if (error.status <= 0 && retries < MAX_REQUESTS) {
-                                    doQuery();
-                                    retries++;
-                                }
-                                else {
-                                    alert(JSON.stringify(error));
-                                }
-                            });
-                            
-                        }
+                        });
                         $window.location.reload();
                     }
                 };
@@ -88,31 +86,77 @@
                     $window.location.reload();
                 };
 
+                $scope.transformToFloat = function (parameter) {
+                    return parseFloat(parameter.replace(",", "."));
+                };
+
+                $scope.calculateDebt = function (quantity, price) {
+                    var debt = quantity * $scope.transformToFloat(price);
+                    return debt;
+                };
+
             }])
 
         .controller('SalesAddController', ['$scope', '$http', '$window',
             function ($scope, $http, $window) {
+                $scope.customer = {
+                    cpf: '',
+                    customer_name: '',
+                    cellphone: '',
+                    telephone: '',
+                    email: ''
+                };
+
+                $http({
+                    method: 'GET',
+                    url: 'http://localhost:3000/Customers'
+                }).then(function (success) {
+                    $scope.customers = success.data;
+                }, function (error) {
+
+                });
+
+                $scope.product = {
+                    product_code: '',
+                    product_version: '',
+                    product_name: '',
+                    price: ''
+                };
+
+                $http({
+                    method: 'GET',
+                    url: 'http://localhost:3000/Products'
+                }).then(function (success) {
+                    $scope.products = success.data;
+                }, function (error) {
+
+                });
 
                 $scope.addSale = function (sale) {
-                    if (sale.sale_code && sale.sale_version) {
-                        $http({
-                            method: 'POST',
-                            url: 'http://localhost:3000/Sales',
-                            data: sale
-                        }).then(function (success) {
-                            alert("Sale with Code: " + sale.sale_code + "\nwas added successfully!");
-                            $window.location.href = "../views/saleslist.html";
-                        }, function (error) {
-                            alert(error);
-                        });
+                    if (!sale.cpf) {
+                        // call get customers searching by name and retrieving cpf
+                        // assign cpf to scope.cpf
+
+                        if (sale) {
+                            $http({
+                                method: 'POST',
+                                url: 'http://localhost:3000/Sales',
+                                data: sale
+                            }).then(function (success) {
+                                alert("Sale with Code: " + sale.sale_code + "\nwas added successfully!");
+                                $window.location.href = "../views/saleslist.html";
+                            }, function (error) {
+                                alert(error);
+                            });
+                        }
                     }
                 };
 
                 $scope.sale = {
-                    sale_code: '',
-                    sale_version: '',
-                    sale_name: '',
-                    price: ''
+                    cpf: '',
+                    product_code: '',
+                    product_version: '',
+                    quantity: ''
                 };
             }])
 })();
