@@ -7,8 +7,10 @@
   },
   "dependencies": {
     "angular": "^1.6.4",
+    "angular-chart.js": "^1.1.1",
     "body-parser": "~1.17.1",
     "bootstrap": "^3.3.7",
+    "chart.js": "^2.6.0",
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.3",
     "debug": "~2.6.3",
