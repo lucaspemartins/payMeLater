@@ -2,6 +2,9 @@ var db = require('../dbconnection'); //reference of dbconnection.js
 
 var Sales = {
 
+    getCustomerByName: function(name, callback) {
+        return db.query("select cpf from customers where customer_name=?", [name], callback);
+    },
     getAllSales: function(callback) {
         return db.query("select * from customers_has_products s join products p on s.products_id_product = p.id_product join customers c on s.customers_cpf = c.cpf", callback);
     },

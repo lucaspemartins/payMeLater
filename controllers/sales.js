@@ -4,6 +4,7 @@
         .config(['$httpProvider', function ($httpProvider) {
             $httpProvider.defaults.useXDomain = true;
             delete $httpProvider.defaults.headers.common['X-Requested-With'];
+            $httpProvider.defaults.headers.common['Content-Type'] = 'application/json';
         }
         ])
         .controller('SalesListController', ['$scope', '$http', '$window',
@@ -18,15 +19,15 @@
 
                 });
 
-                $scope.removeSale = function (code) {
-                    var url = 'http://localhost:3000/Sales/' + code;
+                $scope.removeSale = function (sale) {
+                    var url = 'http://localhost:3000/Sales/' + sale.customers_cpf + "/" + sale.products_product_code + "/" + sale.products_product_version;
                     $http({
                         method: 'DELETE',
                         url: url
                     }).then(function (success) {
                         var response = JSON.stringify(success);
                         if (response.indexOf("\"affectedRows\":1") > -1) {
-                            alert("Sale with Code: " + code + "\nwas deleted with success!");
+                            alert("Sale with Product Code: " + sale.products_product_code + ",\nProduct Version: " + sale.products_product_version + "\nand Customer CPF: " + sale.customers_cpf + "\nwas deleted with success!");
                         }
                         else {
                             alert("Sale cannot be deleted!\n" + response);
@@ -69,7 +70,7 @@
                             var response = JSON.stringify(success);
                             alert(response);
                             if (response.indexOf("\"affectedRows\":1") > -1) {
-                                alert("Sale with Code: " + sale.products_product_code + "\nwas edited successfully!");
+                                alert("Sale with Product Code: " + sale.products_product_code + ",\nProduct Version: " + sale.products_product_version + "\nand Customer CPF: " + sale.customers_cpf + "\nwas edited with success!");
                             }
                             else {
                                 alert("Sale cannot be edited!\n\n" + response);
@@ -117,6 +118,7 @@
                 });
 
                 $scope.product = {
+                    id_product: '',
                     product_code: '',
                     product_version: '',
                     product_name: '',
@@ -132,18 +134,47 @@
 
                 });
 
-                $scope.addSale = function (sale) {
-                    if (!sale.cpf) {
-                        // call get customers searching by name and retrieving cpf
-                        // assign cpf to scope.cpf
+                $scope.addSale = function (sale, customer_cpf, customer_name, product_code, product_id) {
+                    $scope.sale.products_product_code = product_code;
+                    $scope.sale.products_id_product = JSON.stringify(product_id);
+                    $scope.sale.customers_cpf = customer_cpf;
 
-                        if (sale) {
+                    if((customer_cpf || customer_name) && product_code && product_id && sale.products_product_version && sale.quantity) {
+                        if (!sale.customers_cpf) {
+                            // call get customers searching by name and retrieving cpf
+                            // assign cpf to scope.cpf
+                            var url = 'http://localhost:3000/Sales/' + customer_name;
+                            $http({
+                                method: 'GET',
+                                url: url
+                            }).then(function (success) {
+                                var cpfJson = JSON.stringify(success.data);
+                                var pattern = new RegExp("{|}|[|]|\"", "g");
+                                cpfJson = cpfJson.replace(pattern, "").split(":");
+                                $scope.sale.customers_cpf = cpfJson[1].replace("]", "");
+                            
+                                if ($scope.sale.customers_cpf) {
+                                    $http({
+                                        method: 'POST',
+                                        url: 'http://localhost:3000/Sales',
+                                        data: $scope.sale
+                                    }).then(function (success) {
+                                        alert("Sale with Product Code: " + sale.products_product_code + ",\nProduct Version: " + sale.products_product_version + "\nand Customer CPF: " + sale.customers_cpf + "\nwas added with success!");
+                                        $window.location.href = "../views/saleslist.html";
+                                    }, function (error) {
+                                        alert(error);
+                                    });
+                                }
+                            }, function (error) {
+                                alert(error);
+                            });
+                        } else {
                             $http({
                                 method: 'POST',
                                 url: 'http://localhost:3000/Sales',
-                                data: sale
+                                data: $scope.sale
                             }).then(function (success) {
-                                alert("Sale with Code: " + sale.sale_code + "\nwas added successfully!");
+                                alert("Sale with Product Code: " + sale.products_product_code + ",\nProduct Version: " + sale.products_product_version + "\nand Customer CPF: " + sale.customers_cpf + "\nwas added with success!");
                                 $window.location.href = "../views/saleslist.html";
                             }, function (error) {
                                 alert(error);
@@ -153,9 +184,10 @@
                 };
 
                 $scope.sale = {
-                    cpf: '',
-                    product_code: '',
-                    product_version: '',
+                    customers_cpf: '',
+                    products_id_product: '',
+                    products_product_code: '',
+                    products_product_version: '',
                     quantity: ''
                 };
             }])
