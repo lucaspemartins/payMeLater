@@ -1,4 +1,5 @@
-var express = require('express'),
+var express = require('express');
+var path = require('path');
 app = express();
 
 //app.use(express.static(__dirname + '/views'));
