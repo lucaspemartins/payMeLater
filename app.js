@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors=require('cors');
 
-//var index = require('./routes/index');
+var index = require('./routes/index');
 //var users = require('./routes/users');
 var customers = require('./routes/customers');
 var products = require('./routes/products');
@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//app.use('/', index);
+app.use('/', index);
 //app.use('/users', users);
 app.use('/Customers', customers);
 app.use('/Products', products);
