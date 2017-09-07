@@ -33,6 +33,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(express.static(path.join(__dirname, 'routes')));
+app.use(express.static(path.join(__dirname, 'models')));
+app.use(express.static(path.join(__dirname, 'controllers')));
 
 app.use('/', index);
 //app.use('/users', users);
