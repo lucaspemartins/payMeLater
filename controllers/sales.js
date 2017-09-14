@@ -12,7 +12,7 @@
 
                 $http({
                     method: 'GET',
-                    url: 'http://localhost:3000/Sales'
+                    url: 'https://selloncredit.herokuapp.com/Sales'
                 }).then(function (success) {
                     $scope.sales = success.data;
                 }, function (error) {
@@ -20,7 +20,7 @@
                 });
 
                 $scope.removeSale = function (sale) {
-                    var url = 'http://localhost:3000/Sales/' + sale.customers_cpf + "/" + sale.products_product_code + "/" + sale.products_product_version;
+                    var url = 'https://selloncredit.herokuapp.com/Sales/' + sale.customers_cpf + "/" + sale.products_product_code + "/" + sale.products_product_version;
                     $http({
                         method: 'DELETE',
                         url: url
@@ -61,7 +61,7 @@
                             products_product_version: sale.products_product_version,
                             quantity: sale.quantity
                         };
-                        var url = 'http://localhost:3000/Sales/' + sale.quantity;
+                        var url = 'https://selloncredit.herokuapp.com/Sales/' + sale.quantity;
                         $http({
                             method: 'PUT',
                             url: url,
@@ -110,7 +110,7 @@
 
                 $http({
                     method: 'GET',
-                    url: 'http://localhost:3000/Customers'
+                    url: 'https://selloncredit.herokuapp.com/Customers'
                 }).then(function (success) {
                     $scope.customers = success.data;
                 }, function (error) {
@@ -127,7 +127,7 @@
 
                 $http({
                     method: 'GET',
-                    url: 'http://localhost:3000/Products'
+                    url: 'https://selloncredit.herokuapp.com/Products'
                 }).then(function (success) {
                     $scope.products = success.data;
                 }, function (error) {
@@ -143,7 +143,7 @@
                         if (!sale.customers_cpf) {
                             // call get customers searching by name and retrieving cpf
                             // assign cpf to scope.cpf
-                            var url = 'http://localhost:3000/Sales/' + customer_name;
+                            var url = 'https://selloncredit.herokuapp.com/Sales/' + customer_name;
                             $http({
                                 method: 'GET',
                                 url: url
@@ -156,7 +156,7 @@
                                 if ($scope.sale.customers_cpf) {
                                     $http({
                                         method: 'POST',
-                                        url: 'http://localhost:3000/Sales',
+                                        url: 'https://selloncredit.herokuapp.com/Sales',
                                         data: $scope.sale
                                     }).then(function (success) {
                                         alert("Sale with Product Code: " + sale.products_product_code + ",\nProduct Version: " + sale.products_product_version + "\nand Customer CPF: " + sale.customers_cpf + "\nwas added with success!");
@@ -171,7 +171,7 @@
                         } else {
                             $http({
                                 method: 'POST',
-                                url: 'http://localhost:3000/Sales',
+                                url: 'https://selloncredit.herokuapp.com/Sales',
                                 data: $scope.sale
                             }).then(function (success) {
                                 alert("Sale with Product Code: " + sale.products_product_code + ",\nProduct Version: " + sale.products_product_version + "\nand Customer CPF: " + sale.customers_cpf + "\nwas added with success!");

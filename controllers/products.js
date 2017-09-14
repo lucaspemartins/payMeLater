@@ -11,7 +11,7 @@
 
                 $http({
                     method: 'GET',
-                    url: 'http://localhost:3000/Products'
+                    url: 'https://selloncredit.herokuapp.com/Products'
                 }).then(function (success) {
                     $scope.products = success.data;
                 }, function (error) {
@@ -19,7 +19,7 @@
                 });
 
                 $scope.removeProduct = function (code) {
-                    var url = 'http://localhost:3000/Products/' + code;
+                    var url = 'https://selloncredit.herokuapp.com/Products/' + code;
                     $http({
                         method: 'DELETE',
                         url: url
@@ -51,7 +51,7 @@
                 $scope.editProduct = function (product) {
 
                     if (product.product_code && product.product_version) {
-                        var url = 'http://localhost:3000/Products/' + product.product_code;
+                        var url = 'https://selloncredit.herokuapp.com/Products/' + product.product_code;
                         $http({
                             method: 'PUT',
                             url: url,
@@ -85,7 +85,7 @@
                     if (product.product_code && product.product_version) {
                         $http({
                             method: 'POST',
-                            url: 'http://localhost:3000/Products',
+                            url: 'https://selloncredit.herokuapp.com/Products',
                             data: product
                         }).then(function (success) {
                             alert("Product with Code: " + product.product_code + "\nwas added successfully!");
