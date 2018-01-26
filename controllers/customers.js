@@ -11,7 +11,7 @@
 
                 $http({
                     method: 'GET',
-                    url: 'https://selloncredit.herokuapp.com/Customers'
+                    url: '/Customers'
                 }).then(function (success) {
                     $scope.customers = success.data;
                 }, function (error) {
@@ -19,7 +19,7 @@
                 });
 
                 $scope.removeCustomer = function (cpf) {
-                    var url = 'https://selloncredit.herokuapp.com/Customers/' + cpf;
+                    var url = '/Customers/' + cpf;
                     $http({
                         method: 'DELETE',
                         url: url
@@ -52,7 +52,7 @@
                 $scope.editCustomer = function (customer) {
 
                     if (customer.cpf && customer.customer_name) {
-                        var url = 'https://selloncredit.herokuapp.com/Customers/' + customer.cpf;
+                        var url = '/Customers/' + customer.cpf;
                         $http({
                             method: 'PUT',
                             url: url,
@@ -87,7 +87,7 @@
                     if (customer.cpf && customer.customer_name) {
                         $http({
                             method: 'POST',
-                            url: 'https://selloncredit.herokuapp.com/Customers',
+                            url: '/Customers',
                             data: customer
                         }).then(function (success) {
                             alert("Customer with CPF: " + customer.cpf + "\nwas added successfully!");

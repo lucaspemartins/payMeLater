@@ -13,7 +13,7 @@
 
                 $http({
                     method: 'GET',
-                    url: 'https://selloncredit.herokuapp.com/Reports'
+                    url: '/Reports'
                 }).then(function (success) {
                     $scope.reports = success.data;
                     $scope.labels = [];
