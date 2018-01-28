@@ -2,3 +2,68 @@
     height: 400;
     width: 720;
 }
+
+.facebook-button {
+    color: #FFFFFF;
+    background: #400191;
+    font-weight: bold;
+}
+
+.facebook-button:hover {
+    color: #FFFFFF;
+    background: #6C00F6;
+    font-weight: bold;
+}
+
+.facebook-button:active {
+    color: #FFFFFF;
+    background: #400191;
+    font-weight: bold;
+}
+
+.google-button {
+    color: #FFFFFF;
+    background: #dd4b39;
+    font-weight: bold;
+}
+
+.google-button:hover {
+    color: #FFFFFF;
+    background: #F48173;
+    font-weight: bold;
+}
+
+.google-button:active {
+    color: #FFFFFF;
+    background: #dd4b39;
+    font-weight: bold;
+}
+
+.custom-divider {
+    color: #aaaaaa;
+    height: 2px;
+}
+
+.custom-text {
+    text-align: center;
+    font-weight: bold;
+    font-family: courier;
+}
+
+.green-color {
+    color: #5cb85c;
+    font-weight: bold;
+    text-decoration:none; 
+}
+
+.green-color:hover {
+    color: #83D483;
+    font-weight: bold;
+    text-decoration:none; 
+}
+
+.green-color:active {
+    color: #5cb85c;
+    font-weight: bold;
+    text-decoration:none; 
+}
