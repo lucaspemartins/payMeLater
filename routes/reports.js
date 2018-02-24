@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router();
 var Reports = require('../models/Reports');
  
-router.get('/', function(req, res, next) {
+router.get('/:vendor_cpf?', function(req, res, next) {
 
-    Reports.getDataToReport(function(err, rows) {
+    Reports.getDataToReport(req.params.vendor_cpf, function(err, rows) {
         if (err) {
             res.json(err);
         } else {

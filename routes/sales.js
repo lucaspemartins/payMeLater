@@ -2,11 +2,11 @@ var express = require('express');
 var router = express.Router();
 var Sales = require('../models/Sales');
 
-router.get('/:name?', function (req, res, next) {
+router.get('/:vendor_cpf?/:customer_cpf?', function (req, res, next) {
 
-    if (req.params.name) {
+    if (req.params.customer_cpf) {
 
-        Sales.getCustomerByName(req.params.name, function (err, rows) {
+        Sales.getSalesByCustomerName(req.params.vendor_cpf, req.params.customer_cpf, function (err, rows) {
 
             if (err) {
                 res.json(err);
@@ -16,7 +16,7 @@ router.get('/:name?', function (req, res, next) {
         });
     } else {
         
-        Sales.getAllSales(function (err, rows) {
+        Sales.getAllSalesByVendor(req.params.vendor_cpf, function (err, rows) {
 
             if (err) {
                 res.json(err);
@@ -33,14 +33,14 @@ router.post('/', function (req, res, next) {
         if (err) {
             res.json(err);
         } else {
-            res.json(req.body); //or return count for 1 &amp;amp;amp; 0
+            res.json(req.body); 
         }
     });
 });
-router.delete('/:cpf?/:product_code?/:product_version?', function (req, res, next) {
+router.delete('/:vendor_cpf?/:customer_cpf?/:date_time?', function (req, res, next) {
 
-    if (req.params.cpf && req.params.product_code && req.params.product_version) {
-        Sales.deleteSale(req.params.cpf, req.params.product_code, req.params.product_version, function (err, count) {
+    if (req.params.vendor_cpf && req.params.customer_cpf && req.params.date_time) {
+        Sales.deleteSale(req.params.vendor_cpf, req.params.customer_cpf, req.params.date_time, function (err, count) {
 
             if (err) {
                 res.json(err);
@@ -53,9 +53,9 @@ router.delete('/:cpf?/:product_code?/:product_version?', function (req, res, nex
         res.sendStatus(400);
     }
 });
-router.put('/:quantity?', function (req, res, next) {
+router.put('/', function (req, res, next) {
 
-    Sales.updateSale(req.params.quantity, req.body, function (err, rows) {
+    Sales.updateSale(req.body, function (err, rows) {
 
         if (err) {
             res.json(err);

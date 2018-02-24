@@ -2,11 +2,11 @@ var express = require('express');
 var router = express.Router();
 var Products = require('../models/Products');
  
-router.get('/:code?', function(req, res, next) {
+router.get('/:user_cpf?/:code?', function(req, res, next) {
 
     if (req.params.code) {
 
-        Products.getProductByCode(req.params.code, function(err, rows) {
+        Products.getProductByCode(req.params.user_cpf, req.params.code, function(err, rows) {
 
             if (err) {
                 res.json(err);
@@ -16,7 +16,7 @@ router.get('/:code?', function(req, res, next) {
         });
     } else {
 
-        Products.getAllProducts(function(err, rows) {
+        Products.getAllProducts(req.params.user_cpf, function(err, rows) {
 
             if (err) {
                 res.json(err);
@@ -27,19 +27,19 @@ router.get('/:code?', function(req, res, next) {
         });
     }
 });
-router.post('/', function(req, res, next) {
+router.post('/:user_cpf?', function(req, res, next) {
 
     Products.addProduct(req.body, function(err, count) {
         if (err) {
             res.json(err);
         } else {
-            res.json(req.body); //or return count for 1 &amp;amp;amp; 0
+            res.json(req.body);
         }
     });
 });
-router.delete('/:code?', function(req, res, next) {
+router.delete('/:user_cpf?/:code?', function(req, res, next) {
 
-    Products.deleteProduct(req.params.code, function(err, count) {
+    Products.deleteProduct(req.params.user_cpf, req.params.code, function(err, count) {
 
         if (err) {
             res.json(err);
@@ -49,9 +49,9 @@ router.delete('/:code?', function(req, res, next) {
 
     });
 });
-router.put('/:code', function(req, res, next) {
+router.put('/:user_cpf?/:code?', function(req, res, next) {
 
-    Products.updateProduct(req.params.code, req.body, function(err, rows) {
+    Products.updateProduct(req.params.user_cpf, req.params.code, req.body, function(err, rows) {
 
         if (err) {
             res.json(err);

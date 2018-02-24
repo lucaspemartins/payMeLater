@@ -1,10 +1,10 @@
 var mysql=require('mysql');
 var connection=mysql.createPool({
  
- host:'bmsyhziszmhf61g1.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
- user:'wuv0yl1t364wrojl',
- password:'igs6h4p4z2t44xsv',
- database:'mrr3bj8ub8gd6imi'
+ host:'vhw3t8e71xdz9k14.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+ user:'znrblcoyiatolun5',
+ password:'ldvfl9yl7raz07c3',
+ database:'ahpyyi85tlvom346'
  
 });
 module.exports=connection;
