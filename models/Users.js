@@ -15,7 +15,7 @@ var Users = {
         return db.query("select cpf from users where nickname=?", [nickname], callback);
     },
     getUserByEMailAndPass: function(email, password, callback) {
-        return db.query("select count(*) from users where email=? and password=?", [email, password], callback);
+        return db.query("select * from users where email=? and password=?", [email, password], callback);
     },
     addUser: function(Users, callback) {
         return db.query("insert into users(cpf, nickname, user_name, password, cellphone, telephone, email) values(?,?,?,?,?,?)", [Users.cpf, Users.nickname, Users.user_name, Users.password, Users.cellphone, Users.telephone, Users.email], callback);
