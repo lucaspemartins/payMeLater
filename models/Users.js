@@ -14,8 +14,11 @@ var Users = {
     getCpfByNickname: function(nickname, callback) {
         return db.query("select cpf from Users where nickname=?", [nickname], callback);
     },
+    getUserByEMailAndPass: function(email, password, callback) {
+        return db.query("select * from Users where email=? and password=?", [email, password], callback);
+    },
     addUser: function(Users, callback) {
-        return db.query("insert into Users(cpf, nickname, user_name, cellphone, telephone, email) values(?,?,?,?,?,?)", [Users.cpf, Users.nickname, Users.user_name, Users.cellphone, Users.telephone, Users.email], callback);
+        return db.query("insert into Users(cpf, nickname, user_name, password, cellphone, telephone, email) values(?,?,?,?,?,?)", [Users.cpf, Users.nickname, Users.user_name, Users.password, Users.cellphone, Users.telephone, Users.email], callback);
     },
     deleteUser: function(cpf, callback) {
         return db.query("delete from Users where cpf=?", [cpf], callback);

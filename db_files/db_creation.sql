@@ -8,37 +8,39 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- Schema mydb
 -- -----------------------------------------------------
 -- -----------------------------------------------------
--- Schema selloncreditionic
+-- Schema ahpyyi85tlvom346
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema selloncreditionic
+-- Schema ahpyyi85tlvom346
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `selloncreditionic` DEFAULT CHARACTER SET latin5 ;
-USE `selloncreditionic` ;
+CREATE SCHEMA IF NOT EXISTS `ahpyyi85tlvom346` DEFAULT CHARACTER SET utf8 ;
+USE `ahpyyi85tlvom346` ;
 
 -- -----------------------------------------------------
--- Table `selloncreditionic`.`users`
+-- Table `ahpyyi85tlvom346`.`users`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `selloncreditionic`.`users` (
+CREATE TABLE IF NOT EXISTS `ahpyyi85tlvom346`.`users` (
   `cpf` VARCHAR(45) NOT NULL,
   `nickname` VARCHAR(45) NOT NULL,
   `user_name` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
   `cellphone` VARCHAR(12) NULL DEFAULT NULL,
   `telephone` VARCHAR(11) NULL DEFAULT NULL,
-  `email` VARCHAR(45) NULL DEFAULT NULL,
   `photo` BLOB NULL DEFAULT NULL,
   PRIMARY KEY (`cpf`),
   UNIQUE INDEX `cpf_UNIQUE` (`cpf` ASC),
-  UNIQUE INDEX `nickname_UNIQUE` (`nickname` ASC))
+  UNIQUE INDEX `nickname_UNIQUE` (`nickname` ASC),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `selloncreditionic`.`products`
+-- Table `ahpyyi85tlvom346`.`products`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `selloncreditionic`.`products` (
+CREATE TABLE IF NOT EXISTS `ahpyyi85tlvom346`.`products` (
   `id_product` INT(11) NOT NULL AUTO_INCREMENT,
   `product_code` VARCHAR(45) NOT NULL,
   `product_version` VARCHAR(45) NOT NULL,
@@ -51,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `selloncreditionic`.`products` (
   INDEX `fk_products_users1_idx` (`user_cpf` ASC),
   CONSTRAINT `fk_products_users1`
     FOREIGN KEY (`user_cpf`)
-    REFERENCES `selloncreditionic`.`users` (`cpf`)
+    REFERENCES `ahpyyi85tlvom346`.`users` (`cpf`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -60,9 +62,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `selloncreditionic`.`vendors_has_customers`
+-- Table `ahpyyi85tlvom346`.`vendors_has_customers`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `selloncreditionic`.`vendors_has_customers` (
+CREATE TABLE IF NOT EXISTS `ahpyyi85tlvom346`.`vendors_has_customers` (
   `vendor_cpf` VARCHAR(45) NOT NULL,
   `customer_cpf` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`vendor_cpf`, `customer_cpf`),
@@ -70,12 +72,12 @@ CREATE TABLE IF NOT EXISTS `selloncreditionic`.`vendors_has_customers` (
   INDEX `fk_users_has_users_users1_idx` (`vendor_cpf` ASC),
   CONSTRAINT `fk_users_has_users_users1`
     FOREIGN KEY (`vendor_cpf`)
-    REFERENCES `selloncreditionic`.`users` (`cpf`)
+    REFERENCES `ahpyyi85tlvom346`.`users` (`cpf`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_has_users_users2`
     FOREIGN KEY (`customer_cpf`)
-    REFERENCES `selloncreditionic`.`users` (`cpf`)
+    REFERENCES `ahpyyi85tlvom346`.`users` (`cpf`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -83,9 +85,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `selloncreditionic`.`sales`
+-- Table `ahpyyi85tlvom346`.`sales`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `selloncreditionic`.`sales` (
+CREATE TABLE IF NOT EXISTS `ahpyyi85tlvom346`.`sales` (
   `vendor_cpf` VARCHAR(45) NOT NULL,
   `customer_cpf` VARCHAR(45) NOT NULL,
   `products_id_product` INT(11) NOT NULL,
@@ -98,12 +100,12 @@ CREATE TABLE IF NOT EXISTS `selloncreditionic`.`sales` (
   INDEX `fk_vendors_has_customers_has_products_vendors_has_customers_idx` (`vendor_cpf` ASC, `customer_cpf` ASC),
   CONSTRAINT `fk_vendors_has_customers_has_products_products1`
     FOREIGN KEY (`products_id_product` , `products_product_code` , `products_product_version`)
-    REFERENCES `selloncreditionic`.`products` (`id_product` , `product_code` , `product_version`)
+    REFERENCES `ahpyyi85tlvom346`.`products` (`id_product` , `product_code` , `product_version`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_vendors_has_customers_has_products_vendors_has_customers1`
     FOREIGN KEY (`vendor_cpf` , `customer_cpf`)
-    REFERENCES `selloncreditionic`.`vendors_has_customers` (`vendor_cpf` , `customer_cpf`)
+    REFERENCES `ahpyyi85tlvom346`.`vendors_has_customers` (`vendor_cpf` , `customer_cpf`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
