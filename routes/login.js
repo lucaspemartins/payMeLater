@@ -3,12 +3,12 @@ var router = express.Router();
 var Users = require('../models/Users');
 
 router.get('/:email?/:password?', function (req, res, next) {
-    if (req.param.cpf && req.params.password) {
-        Users.getUserByEMailAndPass(req.params.cpf, req.params.password, function (err, count) {
+    if (req.params.email && req.params.password) {
+        Users.getUserByEMailAndPass(req.params.email, req.params.password, function (err, rows) {
             if (err) {
                 res.json(err);
             } else {
-                res.json(count);
+                res.json(rows);
             }
         });
     }
