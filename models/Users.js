@@ -18,7 +18,7 @@ var Users = {
         return db.query("select * from users where email=? and password=?", [email, password], callback);
     },
     addUser: function(Users, callback) {
-        return db.query("insert into users(cpf, nickname, user_name, password, cellphone, telephone, email) values(?,?,?,?,?,?)", [Users.cpf, Users.nickname, Users.user_name, Users.password, Users.cellphone, Users.telephone, Users.email], callback);
+        return db.query("insert into users(cpf, nickname, user_name, password, cellphone, telephone, email) values(?,?,?,?,?,?,?)", [Users.cpf, Users.nickname, Users.user_name, Users.password, Users.cellphone, Users.telephone, Users.email], callback);
     },
     deleteUser: function(cpf, callback) {
         return db.query("delete from users where cpf=?", [cpf], callback);
