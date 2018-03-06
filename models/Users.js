@@ -6,7 +6,7 @@ var Users = {
         return db.query("select * from users", callback);
     },
     getAllUsersWithoutMe: function(cpf, callback) {
-        return db.query("select * from users where cpf not like ?", [cpf], callback);
+        return db.query("select * from users where cpf not in (select customer_cpf from vendors_has_customers where vendor_cpf=?) and cpf not like ?", [cpf, cpf], callback);
     },
     getUserByCpf: function(cpf, callback) {
         return db.query("select * from users where cpf=?", [cpf], callback);
