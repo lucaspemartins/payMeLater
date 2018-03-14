@@ -24,7 +24,7 @@ var Users = {
         return db.query("delete from users where cpf=?", [cpf], callback);
     },
     updateUser: function(cpf, Users, callback) {
-        return db.query("update users set user_name=?,nickname=?,cellphone=?,telephone=?,email=? where cpf=?", [Users.user_name, Users.nickname, Users.cellphone, Users.telephone, Users.email, cpf], callback);
+        return db.query("update users set cpf=?,user_name=?,nickname=?,cellphone=?,telephone=?,email=?,password=? where cpf=?", [Users.cpf, Users.user_name, Users.nickname, Users.cellphone, Users.telephone, Users.email, Users.password, cpf], callback);
     }
 
 };
