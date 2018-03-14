@@ -3,7 +3,7 @@ var router = express.Router();
 var Users = require('../models/Users');
 
 router.get('/:cpf?', function (req, res, next) {
-    if (req.param.cpf) {
+    if (req.params.cpf) {
         Users.getUserByCpf(req.params.cpf, function (err, rows) {
 
             if (err) {
