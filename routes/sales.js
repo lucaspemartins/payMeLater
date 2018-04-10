@@ -16,7 +16,7 @@ router.get('/:vendor_cpf?/:customer_cpf?', function (req, res, next) {
         });
     } else {
         
-        Sales.getAllSalesByVendor(req.params.vendor_cpf, function (err, rows) {
+        Sales.getAllSalesByVendorWithDetails(req.params.vendor_cpf, function (err, rows) {
 
             if (err) {
                 res.json(err);
