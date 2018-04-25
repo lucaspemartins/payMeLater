@@ -6,7 +6,7 @@ var Sales = {
         return db.query("select * from sales where vendor_cpf=?", [vendor_cpf], callback);
     },
     getAllSalesByVendorWithDetails: function(vendor_cpf, callback) {
-        return db.query("select nickname, user_name, products_product_code, products_product_version, product_name, quantity, price from sales s join users u on s.customer_cpf = u.cpf join products p on p.id_product = s.products_id_product where s.vendor_cpf = ?", [vendor_cpf], callback);
+        return db.query("select nickname, user_name, customer_cpf, products_product_code, products_product_version, product_name, quantity, price from sales s join users u on s.customer_cpf = u.cpf join products p on p.id_product = s.products_id_product where s.vendor_cpf = ?", [vendor_cpf], callback);
     },
     getSalesByCustomerName: function(vendor_cpf, customer_cpf, callback) {
         return db.query("select * from sales where vendor_cpf=? and customer_cpf=?", [vendor_cpf, customer_cpf], callback);
