@@ -95,6 +95,7 @@ CREATE TABLE IF NOT EXISTS `ahpyyi85tlvom346`.`sales` (
   `products_product_version` VARCHAR(45) NOT NULL,
   `quantity` INT(11) NULL DEFAULT NULL,
   `date_time` DATETIME NOT NULL,
+  `paid_amount` VARCHAR(10) NULL DEFAULT NULL,
   PRIMARY KEY (`vendor_cpf`, `customer_cpf`, `products_id_product`, `products_product_code`, `products_product_version`, `date_time`),
   INDEX `fk_vendors_has_customers_has_products_products1_idx` (`products_id_product` ASC, `products_product_code` ASC, `products_product_version` ASC),
   INDEX `fk_vendors_has_customers_has_products_vendors_has_customers_idx` (`vendor_cpf` ASC, `customer_cpf` ASC),
