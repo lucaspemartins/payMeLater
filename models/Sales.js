@@ -21,7 +21,7 @@ var Sales = {
         return db.query("delete from sales where vendor_cpf=? and customer_cpf=? and date_time=?", [vendor_cpf, customer_cpf, date_time], callback);
     },
     updateSale: function(Sales, callback) {
-        return db.query("update sales set paid_amount=? where vendor_cpf=? and customer_cpf=? and products_product_code=? and products_product_version=? and date_time=? and quantity=?", [Sales.paid_amount, Sales.vendor_cpf, Sales.customer_cpf, Sales.products_product_code, Sales.products_product_version, Sales.date_time, Sales.quantity], callback);
+        return db.query("update sales set paid_amount=? where vendor_cpf=? and customer_cpf=? and products_product_code=? and products_product_version=? and date_time=?", [Sales.paid_amount, Sales.vendor_cpf, Sales.customer_cpf, Sales.products_product_code, Sales.products_product_version, Sales.date_time], callback);
     }
 
 };
