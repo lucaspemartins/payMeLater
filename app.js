@@ -12,6 +12,7 @@ var possibleCustomers = require('./routes/possibleCustomers');
 var customers = require('./routes/customers');
 var products = require('./routes/products');
 var sales = require('./routes/sales');
+var purchases = require('./routes/purchases');
 var reports = require('./routes/reports');
 var login = require('./routes/login');
 
