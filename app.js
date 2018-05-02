@@ -44,6 +44,7 @@ app.use('/PossibleCustomers', possibleCustomers);
 app.use('/Customers', customers);
 app.use('/Products', products);
 app.use('/Sales', sales);
+app.use('/Purchases', purchases);
 app.use('/Reports', reports);
 app.use('/Login', login);
 
