@@ -7,4 +7,4 @@ var Purchases = {
     }
 
 };
-module.exports = Sales;
+module.exports = Purchases;
